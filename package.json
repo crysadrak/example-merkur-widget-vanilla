@@ -34,7 +34,7 @@
     "morgan": "^1.10.0"
   },
   "devDependencies": {
-    "@merkur/tool-storybook": "0.45.0",
+    "@merkur/tool-storybook": "file:merkur-tool-storybook-0.45.0.tgz",
     "@merkur/tools": "0.44.0",
     "@storybook/html-vite": "10.2.7",
     "es-jest": "^2.1.0",
