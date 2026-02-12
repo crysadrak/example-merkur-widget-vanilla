@@ -1,0 +1,6 @@
+{
+  "environment": "development",
+  "widget": {
+    "apiUrl": "https://api.github.dev/"
+  }
+}

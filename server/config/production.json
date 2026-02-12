@@ -1,0 +1,6 @@
+{
+  "environment": "production",
+  "widget": {
+    "apiUrl": "https://api.github.com/"
+  }
+}

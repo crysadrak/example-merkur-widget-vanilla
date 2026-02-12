@@ -1,0 +1,49 @@
+{
+  "name": "merkur-widget-vanilla",
+  "version": "0.0.1",
+  "description": "",
+  "scripts": {
+    "test": "npm run test:all",
+    "test:unit": "cross-env TEST_GROUP='unit' merkur test",
+    "test:integration": "cross-env TEST_GROUP='integration' merkur test",
+    "test:all": "npm run build && cross-env TEST_GROUP='all' merkur test",
+    "test:watch": "cross-env TEST_GROUP='unit' merkur test --watchAll",
+    "lint": "eslint -c ./.eslintrc.js --ignore-path ./.prettierignore './**/*.{js,jsx}'",
+    "dev": "merkur dev",
+    "build": "merkur build",
+    "start": "merkur start",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@merkur/cli": "0.44.0",
+    "@merkur/core": "0.44.0",
+    "@merkur/integration": "0.44.0",
+    "@merkur/plugin-component": "0.44.0",
+    "@merkur/plugin-error": "0.44.0",
+    "@merkur/plugin-event-emitter": "0.44.0",
+    "compression": "^1.7.4",
+    "config": "^3.3.7",
+    "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
+    "express": "^4.17.3",
+    "express-static-gzip": "^2.1.5",
+    "helmet": "^5.0.2",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "@merkur/tool-storybook": "0.45.0",
+    "@merkur/tools": "0.44.0",
+    "@storybook/html-vite": "10.2.7",
+    "es-jest": "^2.1.0",
+    "storybook": "10.2.7"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "imports": {
+    "#src/*": "./src/*"
+  }
+}
