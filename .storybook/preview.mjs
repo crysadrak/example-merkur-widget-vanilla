@@ -1,26 +1,38 @@
-import { createPreviewConfig } from '@merkur/tool-storybook';
+import {
+  createPreviewConfig,
+  createVanillaRenderer,
+} from '@merkur/tool-storybook';
 import widgetProperties from '../src/widget.js';
 import View from '../src/views/View.js';
 import HeadlineSlot from '../src/slots/HeadlineSlot.js';
+import Counter from '../src/components/Counter.js';
+import '../src/style.css';
 
-// Create preview configuration with Merkur widget support
+function bindEvents(container, widget) {
+  container
+    .querySelector(`[data-merkur="on-increase"]`)
+    ?.addEventListener('click', () => widget.onClick(widget));
+
+  container
+    .querySelector(`[data-merkur="on-reset"]`)
+    ?.addEventListener('click', () => widget.onReset(widget));
+}
+
+const renderer = createVanillaRenderer({
+  ViewComponent: {
+    default: View,
+    headline: HeadlineSlot,
+    Counter,
+  },
+  bindEvents,
+});
+
 const preview = {
-    ...createPreviewConfig({
-        widgetProperties,
-    }),
-    // Vanilla JS render function
-    render: (args, context) => {
-        const { loaded: { widget } } = context;
-        if (!widget) {
-            return document.createElement('div');
-        }
-
-        const container = document.createElement('div');
-        const viewFunction = args.viewComponent === 'headline' ? HeadlineSlot : View;
-        container.innerHTML = viewFunction(widget);
-        
-        return container;
-    },
+  ...createPreviewConfig({
+    widgetProperties,
+    render: renderer.update,
+  }),
+  render: renderer.render,
 };
 
 export default preview;
