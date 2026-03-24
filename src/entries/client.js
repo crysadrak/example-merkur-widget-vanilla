@@ -1,8 +1,9 @@
-import { createMerkurWidget, createMerkur } from '@merkur/core';
-
-import { mapViews } from '@merkur/plugin-component/helpers';
-import { viewFactory } from '../views/View';
 import widgetProperties from '@widget';
+
+import { createMerkurWidget, createMerkur } from '@merkur/core';
+import { mapViews } from '@merkur/plugin-component/helpers';
+
+import { viewFactory } from '../views/View';
 
 import '../style.css';
 
