@@ -18,12 +18,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@merkur/cli": "^0.47.0",
-    "@merkur/core": "^0.47.0",
-    "@merkur/integration": "^0.47.0",
-    "@merkur/plugin-component": "^0.47.0",
-    "@merkur/plugin-error": "^0.47.0",
-    "@merkur/plugin-event-emitter": "^0.47.0",
+    "@merkur/cli": "file:merkur-cli-0.47.2.tgz",
+    "@merkur/core": "file:merkur-core-0.47.2.tgz",
+    "@merkur/integration": "file:merkur-integration-0.47.2.tgz",
+    "@merkur/plugin-component": "file:merkur-plugin-component-0.47.2.tgz",
+    "@merkur/plugin-error": "file:merkur-plugin-error-0.47.2.tgz",
+    "@merkur/plugin-event-emitter": "file:merkur-plugin-event-emitter-0.47.2.tgz",
     "compression": "^1.7.4",
     "config": "^3.3.7",
     "cors": "^2.8.5",
@@ -35,7 +35,7 @@
   },
   "devDependencies": {
     "@merkur/tool-storybook": "file:merkur-tool-storybook-0.47.2.tgz",
-    "@merkur/tools": "^0.47.0",
+    "@merkur/tools": "file:merkur-tools-0.47.2.tgz",
     "@storybook/html-vite": "10.2.7",
     "es-jest": "^2.1.0",
     "storybook": "10.2.7"
