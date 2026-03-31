@@ -12,7 +12,7 @@
     "dev": "merkur dev",
     "build": "merkur build",
     "start": "merkur start",
-    "storybook": "storybook dev -p 6006",
+    "storybook": "rimraf node_modules/.cache/storybook && storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
   "author": "",

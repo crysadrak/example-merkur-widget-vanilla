@@ -1,37 +1,47 @@
 import widgetProperties from '@widget';
 
-import { createMerkurWidget, createMerkur } from '@merkur/core';
+import { createMerkurWidget, createMerkur, isRegistered } from '@merkur/core';
 import { mapViews } from '@merkur/plugin-component/helpers';
 
 import { viewFactory } from '../views/View';
 
 import '../style.css';
 
-function createWidget(widgetParams) {
+export function createWidget(widgetParams) {
   return createMerkurWidget({
     ...widgetProperties,
     ...widgetParams,
     $dependencies: {},
+    bindEventListeners(widget, container) {
+      const abortController = new AbortController();
+      widget.$external.abortController = abortController;
+      const { signal } = abortController;
+
+      container
+        .querySelector(`[data-merkur="on-increase"]`)
+        ?.addEventListener('click', () => widget.onClick(), { signal });
+
+      container
+        .querySelector(`[data-merkur="on-reset"]`)
+        ?.addEventListener('click', () => widget.onReset(), { signal });
+    },
     async mount(widget) {
-      mapViews(widget, viewFactory, ({ container }) => {
+      mapViews(widget, viewFactory, ({ container, View }) => {
         if (!container) {
           return;
         }
 
-        container
-          .querySelector(`[data-merkur="on-increase"]`)
-          ?.addEventListener('click', () => {
-            widget.onClick();
-          });
+        if (container.innerHTML.trim() === '' && View) {
+          container.innerHTML = View(widget);
+        }
 
-        container
-          .querySelector(`[data-merkur="on-reset"]`)
-          ?.addEventListener('click', () => {
-            widget.onReset();
-          });
+        widget.bindEventListeners(container);
       });
     },
     async unmount(widget) {
+      widget.$external.abortController?.abort();
+      widget.$external.abortController = null;
+
       mapViews(widget, viewFactory, ({ container }) => {
         if (!container) {
           return;
@@ -41,20 +51,21 @@ function createWidget(widgetParams) {
       });
     },
     async update(widget) {
-      mapViews(widget, viewFactory, ({ container }) => {
+      mapViews(widget, viewFactory, ({ container, View }) => {
         if (!container) {
           return;
         }
 
-        container.querySelector(`[data-merkur="counter"]`).innerText =
-          widget.state.counter;
+        container.innerHTML = View(widget);
+        widget.bindEventListeners(container);
       });
     },
   });
 }
 
-const merkur = createMerkur();
-merkur.register({
-  ...widgetProperties,
-  createWidget,
-});
+if (!isRegistered(widgetProperties.name)) {
+  createMerkur().register({
+    ...widgetProperties,
+    createWidget,
+  });
+}

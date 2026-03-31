@@ -1,9 +1,13 @@
+import { useArgs } from 'storybook/preview-api';
+
 export const decorators = [
-  (StoryFn, { loaded: { widget }, args, updateArgs }) => {
-    if (widget && widget.$in) {
+  (StoryFn, { loaded: { widget }, args }) => {
+    const [, updateArgs] = useArgs();
+
+    if (widget && widget.$external) {
       // Store updateArgs and a live getter for args so the render callback can
       // sync widget state/props back to the Controls panel after interactions.
-      widget.$in._storybookSync = { updateArgs, getArgs: () => args };
+      widget.$external.storybook = { updateArgs, getArgs: () => args };
     }
     return StoryFn();
   },
